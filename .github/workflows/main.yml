@@ -5,7 +5,7 @@ on:
   # 触发条件1：main 分支收到 push 后执行任务。
   push:
     branches:
-      - main
+      - master
 # 这里放环境变量,需要替换成你自己的11
 env:
   # Hexo 编译后使用此 git 用户部署到 github 仓库
