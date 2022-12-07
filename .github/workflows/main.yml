@@ -9,7 +9,7 @@ on:
 # 这里放环境变量,需要替换成你自己的11
 env:
   # Hexo 编译后使用此 git 用户部署到 github 仓库
-  GIT_USER: 1284651044@qq.com
+  GIT_USER: PatrickSt
   # Hexo 编译后使用此 git 邮箱部署到 github 仓库
   GIT_EMAIL: 1284651044@qq.com
   # Hexo 编译后要部署的 github 仓库
@@ -17,9 +17,9 @@ env:
   # Hexo 编译后要部署到的分支
   GIT_DEPLOY_BRANCH: master
   # Hexo 编译后使用此 gitee 用户部署到gitee仓库
-  GITEE_USER: 1284651044@qq.com
+  GITEE_USER: PatrickSt
   # Hexo 编译后要部署的 gitee 仓库
-  GITEE_DEPLOY_REPO: 她出去赚钱了/PatrickSt
+  GITEE_DEPLOY_REPO: PatrickSt/PatrickSt
   # Hexo 编译后要部署到的分支
   GITEE_DEPLOY_BRANCH: master
   
@@ -34,18 +34,11 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-18.04]
-        node_version: [12.x]
+        node_version: [14.x]
 
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-
-      - name: Checkout deploy repo
-        uses: actions/checkout@v2
-        with:
-          repository: ${{ env.GIT_DEPLOY_REPO }}
-          ref: ${{ env.GIT_DEPLOY_BRANCH }}
-          path: .deploy_git
 
       - name: Use Node.js ${{ matrix.node_version }}
         uses: actions/setup-node@v1
@@ -57,13 +50,6 @@ jobs:
           HEXO_DEPLOY_PRI: ${{secrets.HEXO_DEPLOY_PRI}}
         run: |
           sudo timedatectl set-timezone "Asia/Shanghai"
-          mkdir -p ~/.ssh/
-          echo "$HEXO_DEPLOY_PRI" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
-          # coding 已取消同步
-          ssh-keyscan -t rsa e.coding.net >> ~/.ssh/known_hosts
-          ssh-keyscan -t rsa gitee.com >> ~/.ssh/known_hosts
           git config --global user.name $GIT_USER
           git config --global user.email $GIT_EMAIL
 
@@ -71,23 +57,11 @@ jobs:
         run: |
           npm install hexo-cli -g
           npm install
-          npm uninstall hexo-generator-index --save
-          npm install hexo-baidu-url-submit hexo-generator-index2 hexo-symbols-count-time hexo-blog-encrypt hexo-deployer-git --save
-          cp zh-CN.yml node_modules/hexo-theme-next/languages/
+          npm install hexo-deployer-git --save
 
       - name: Deploy hexo
         run: |
           npm run deploy
-
-      # 以下为发布到gitee
-      - name: Sync to Gitee
-        uses: wearerequired/git-mirror-action@master
-        env:
-          # 直接使用了 HEXO_DEPLOY_PRI
-          SSH_PRIVATE_KEY: ${{ secrets.HEXO_DEPLOY_PRI }}
-        with:
-          # Gitee 目标仓库地址
-          destination-repo: ${{ env.GITEE_DESTINATION_REPO }}
 
       - name: Build Gitee Pages
         uses: yanglbme/gitee-pages-action@main
