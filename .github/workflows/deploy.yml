@@ -2,9 +2,7 @@ name: Hexo deploy
 
 on: 
   push:
-    paths-ignore:
-      - 'source/_drafts/**'
-      - '.github/**'
+  
 jobs:
   build:
     runs-on: ubuntu-latest
