@@ -19,7 +19,7 @@ env:
   # Hexo 编译后使用此 gitee 用户部署到gitee仓库
   GITEE_USER: 1284651044@qq.com
   # Hexo 编译后要部署的 gitee 仓库
-  GITEE_DEPLOY_REPO: 她出去赚钱了/PatrickSt
+  GITEE_DEPLOY_REPO: PatrickSt/PatrickSt
   # Hexo 编译后要部署到的分支
   GITEE_DEPLOY_BRANCH: master
   
@@ -79,7 +79,7 @@ jobs:
 
       # 以下为发布到gitee
       - name: Sync to Gitee
-        uses: PatrickSt/git-mirror-action@master
+        uses: wearerequired/git-mirror-action@master
         env:
           # 直接使用了 HEXO_DEPLOY_PRI
           SSH_PRIVATE_KEY: ${{ secrets.HEXO_DEPLOY_PRI }}
@@ -88,7 +88,7 @@ jobs:
           destination-repo: ${{ env.GITEE_DESTINATION_REPO }}
 
       - name: Build Gitee Pages
-        uses: PatrickSt/gitee-pages-action@main
+        uses: yanglbme/gitee-pages-action@main
         with:
           # 你的 Gitee 用户名
           gitee-username: ${{ env.GITEE_USER }}
