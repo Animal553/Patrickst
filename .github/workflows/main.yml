@@ -40,12 +40,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Checkout deploy repo
-        uses: actions/checkout@v2
-        with:
-          repository: ${{ env.GIT_DEPLOY_REPO }}
-          ref: ${{ env.GIT_DEPLOY_BRANCH }}
-          path: .deploy_git
+      # - name: Checkout deploy repo
+      # uses: actions/checkout@v2
+        #with:
+          #repository: ${{ env.GIT_DEPLOY_REPO }}
+          #ref: ${{ env.GIT_DEPLOY_BRANCH }}
+          #path: .deploy_git
 
       - name: Use Node.js ${{ matrix.node_version }}
         uses: actions/setup-node@v1
@@ -60,7 +60,7 @@ jobs:
           mkdir -p ~/.ssh/
           echo "$HEXO_DEPLOY_PRI" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+          # ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
           # coding 已取消同步
           ssh-keyscan -t rsa e.coding.net >> ~/.ssh/known_hosts
           ssh-keyscan -t rsa gitee.com >> ~/.ssh/known_hosts
