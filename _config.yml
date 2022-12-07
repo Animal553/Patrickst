@@ -104,5 +104,5 @@ theme: fluid  # 指定主题
 ### 指令 hexo deploy 上传博客   先执行 cnpm install hexo-deployer-git --save 下载相关组件
 deploy:
   type: git         # type为git
-  repo: git@gitee.com:PatrickSt/PatrickSt.git # 仓库的URL
+  repo: git@github.com:Animal553/PatrickSt.github.io.git # 仓库的URL
   branch: master
