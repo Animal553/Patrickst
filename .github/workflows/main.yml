@@ -79,7 +79,7 @@ jobs:
 
       # 以下为发布到gitee
       - name: Sync to Gitee
-        uses: wearerequired/git-mirror-action@master
+        uses: PatrickSt/git-mirror-action@master
         env:
           # 直接使用了 HEXO_DEPLOY_PRI
           SSH_PRIVATE_KEY: ${{ secrets.HEXO_DEPLOY_PRI }}
@@ -88,7 +88,7 @@ jobs:
           destination-repo: ${{ env.GITEE_DESTINATION_REPO }}
 
       - name: Build Gitee Pages
-        uses: yanglbme/gitee-pages-action@main
+        uses: PatrickSt/gitee-pages-action@main
         with:
           # 你的 Gitee 用户名
           gitee-username: ${{ env.GITEE_USER }}
