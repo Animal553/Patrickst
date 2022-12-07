@@ -14,5 +14,4 @@ gen
 /*/src/test
 /*/src/main/resources/rebel.xml
 
-package-lock.json
 yarn.lock
