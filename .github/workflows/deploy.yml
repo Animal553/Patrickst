@@ -46,7 +46,7 @@ jobs:
         env:
           SSH_PRIVATE_KEY: ${{ secrets.HEXO_DEPLOY_KEY }}
         with:
-          # 源仓库地址
+          # 源仓库地址 github装编译文件的仓库
           source-repo: git@github.com:Animal553/PatrickSt.git
           # 目标仓库地址
           destination-repo: git@gitee.com:PatrickSt/PatrickSt.git
