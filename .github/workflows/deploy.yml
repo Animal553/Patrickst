@@ -24,6 +24,9 @@ jobs:
     - name: Install Dependencies
       if: steps.cache.outputs.cache-hit != 'true'
       run: npm install
+
+    - name: Install Dependencies copy
+      run: npm install --save hexo-deployer-git
         
     # Deploy hexo blog website.
     - name: Deploy
