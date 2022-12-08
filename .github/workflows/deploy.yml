@@ -57,10 +57,12 @@ jobs:
           node-version: ${{ matrix.node_version }}
 
       - name: Configuration environment
+        env:
+          HEXO_DEPLOY_KEY: ${{secrets.HEXO_DEPLOY_KEY}}
         run: |
           sudo timedatectl set-timezone "Asia/Shanghai"
           mkdir -p ~/.ssh/
-          echo ${{secrets.HEXO_DEPLOY_KEY}} > ~/.ssh/id_rsa
+          echo "$HEXO_DEPLOY_KEY" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
           # coding 已取消同步
@@ -79,18 +81,6 @@ jobs:
       - name: Deploy hexo
         run: |
           npm run deploy
-
-      # 以下为发布到gitee
-      - name: Sync to Gitee
-        uses: wearerequired/git-mirror-action@master
-        env:
-          # 直接使用了 HEXO_DEPLOY_KEY
-          SSH_PRIVATE_KEY: ${{ secrets.HEXO_DEPLOY_KEY }}
-        with:
-          # GitHub 源仓库地址
-          source-repo: ${{ env.GIT_SOURCE_REPO }}
-          # Gitee 目标仓库地址
-          destination-repo: ${{ env.GITEE_DESTINATION_REPO }}
 
       - name: Build Gitee Pages
         uses: yanglbme/gitee-pages-action@main
