@@ -61,9 +61,9 @@ jobs:
           HEXO_DEPLOY_KEY: ${{secrets.HEXO_DEPLOY_KEY}}
         run: |
           sudo timedatectl set-timezone "Asia/Shanghai"
-          mkdir -p ~/.ssh/
-          echo "$HEXO_DEPLOY_KEY" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
+          sudo mkdir -p ~/.ssh/
+          sudo echo "$HEXO_DEPLOY_KEY" > ~/.ssh/id_rsa
+          sudo chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
           # coding 已取消同步
           ssh-keyscan -t rsa e.coding.net >> ~/.ssh/known_hosts
